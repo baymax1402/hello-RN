@@ -5,5 +5,9 @@ export default {
         nearBy: '附近',
         order: '订单',
         mine: '我的'
+    },
+    home:{
+        leftItem: '福州'
+
     }
 }
