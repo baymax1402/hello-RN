@@ -12,7 +12,9 @@ import screen from '../../common/screen.js'
 import system from '../../common/system.js'
 import Common from '../../widgets/common.js'
 import NavigationItem from '../../widgets/NavigationItem.js'
-
+import { Paragragh } from '../../widgets/Text.js'
+import HomeMenuView from './HomeMenuView'
+import api from '../../service/api.js'
 
 class HomeScene extends PureComponent {
     // navigation
@@ -20,6 +22,7 @@ class HomeScene extends PureComponent {
         headerTitle: (
             <TouchableOpacity style= {styles.searchBar}>
                 <Image source={ require('../../img/Home/search_icon.png')} style= {styles.searchIcon}/>
+                <Paragragh>一点点</Paragragh>
             </TouchableOpacity>
         ),
         headerRight: (
@@ -39,10 +42,13 @@ class HomeScene extends PureComponent {
         ),
         headerStyle: { backgroundColor: color.theme }
     })
+    onMenuSelected(index: number) {
+       alert(index)
+    }
     render() {
         return (
             <View style={styles.container}>
-                <Text>HomeScene</Text>
+                <HomeMenuView menuInfos={api.menuInfo} onMenuSelected={this.onMenuSelected} />
             </View>
         );
     }
@@ -61,7 +67,7 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     searchIcon: {
         width: 20,
@@ -70,4 +76,4 @@ const styles = {
     }
 }
 
-export default HomeScene
+export default HomeScene;
