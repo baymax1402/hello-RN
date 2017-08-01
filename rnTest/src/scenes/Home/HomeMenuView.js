@@ -6,6 +6,8 @@ import {
 
 import HomeMenuItem from './HomeMenuItem'
 import screen from '../../common/screen.js'
+import color from '../../widgets/color.js'
+import PageControl from '../../widgets/PageControl.js'
 // create a component
 class HomeMenuView extends PureComponent {
 
@@ -51,15 +53,37 @@ class HomeMenuView extends PureComponent {
                 <ScrollView contentContainerStyle={styles.contentContainer}
                     horizontal
                     showsHorizontalScrollIndicator = {false}
-                    pagingEnabled
-                >
+                    pagingEnabled>
                     <View style = {styles.menuContainer}>
                         {menuViews}
                     </View>
                 </ScrollView>
+
+                <PageControl
+                    style = {styles.pageControl}
+                    numberOfPages = {pageCount}
+                    currentPage = {this.state.currentPage}
+                    hidesForSinglePage
+                    pageIndicatorTintColor = 'gray'
+                    currentPageIndicatorTintColor = {color.theme}
+                    indicatorSize = {{ width: 8, height: 8 }}
+                />
+
             </View>
 
-        )
+        );
+    }
+
+    onScroll(e:any) {
+        let x = e.nativeEvent.contentOffset.x;
+        let currentPage = Math.round(x / screen.width);
+        console.log('onScroll  ' + e.nativeEvent.contentOffset.x + '  page ' + currentPage + '  current ' + this.state.currentPage)
+        if (this.state.currentPage != currentPage) {
+            this.setState({
+                currentPage: currentPage
+            })
+        }
+
     }
 
 }
@@ -78,6 +102,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         width: screen.width
+    },
+    pageControl: {
+        margin: 10
     }
 });
 
