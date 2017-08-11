@@ -19,7 +19,7 @@ class HomeGridView extends PureComponent {
                     <HomeGridItem
                         info = {info}
                         key = {index}
-                        onPress = {() => this.props.onGridSelected(index)}/>
+                        onPress = {() => this.props.onGridSelected(info)}/>
 
                 ))}
             </View>

@@ -63,25 +63,34 @@ class HomeScene extends PureComponent {
     }
     // 请求数据
     requestData(){
+        // 获取折扣推荐
         this.requestDiscounts();
     }
     // 获取折扣
     requestDiscounts(){
+        let self = this;
         api.getDiscounts().then((response) => {
-            console.log(response);
+            let datas = response.data;
+            self.setState({ discounts: datas });
         }).catch((err) => {
             console.log('err:' + err);
         })
+
     }
-    onMenuSelected(index: number) {
-       alert(index)
+    onMenuSelected(index) {
+       console.log(index);
+    }
+    onGridSelected(info) {
+        //此处不能使用this.state 
+        console.log(info);
+
     }
     render() {
         return (
             <View style={styles.container}>
-                <HomeMenuView menuInfos={datas.menuInfo} onMenuSelected={this.onMenuSelected} />
+                <HomeMenuView menuInfos={datas.menuInfo} onMenuSelected={(this.onMenuSelected)} />
                 <SpacingView />
-                <HomeGridView infos={this.state.discounts} onGridSelected={this.onGridSelected} />
+                <HomeGridView infos={this.state.discounts} onGridSelected={(this.onGridSelected)} />
                 <SpacingView />
                 <View style= {styles.recommendHeader}>
                     <Heading2>猜你喜欢</Heading2>
