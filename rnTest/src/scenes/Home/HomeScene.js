@@ -12,9 +12,12 @@ import screen from '../../common/screen.js'
 import system from '../../common/system.js'
 import Common from '../../widgets/common.js'
 import NavigationItem from '../../widgets/NavigationItem.js'
-import { Paragragh } from '../../widgets/Text.js'
+import { Paragragh,Heading2 } from '../../widgets/Text.js'
 import HomeMenuView from './HomeMenuView'
+import HomeGridView from './HomeGridView'
+import SpacingView from '../../widgets/SpacingView.js'
 import api from '../../service/api.js'
+import datas from '../../service/datas.js'
 
 class HomeScene extends PureComponent {
     // navigation
@@ -41,14 +44,48 @@ class HomeScene extends PureComponent {
 
         ),
         headerStyle: { backgroundColor: color.theme }
-    })
+    });
+    state: {
+        discounts: Array,
+        dataList: Array,
+        refreshing: boolean
+    };
+    // 初始化数据
+    constructor(props){
+        super(props);
+        this.state = {
+            discounts: []
+        };
+    }
+    // 组件挂载
+    componentDidMount(){
+        this.requestData();
+    }
+    // 请求数据
+    requestData(){
+        this.requestDiscounts();
+    }
+    // 获取折扣
+    requestDiscounts(){
+        api.getDiscounts().then((response) => {
+            console.log(response);
+        }).catch((err) => {
+            console.log('err:' + err);
+        })
+    }
     onMenuSelected(index: number) {
        alert(index)
     }
     render() {
         return (
             <View style={styles.container}>
-                <HomeMenuView menuInfos={api.menuInfo} onMenuSelected={this.onMenuSelected} />
+                <HomeMenuView menuInfos={datas.menuInfo} onMenuSelected={this.onMenuSelected} />
+                <SpacingView />
+                <HomeGridView infos={this.state.discounts} onGridSelected={this.onGridSelected} />
+                <SpacingView />
+                <View style= {styles.recommendHeader}>
+                    <Heading2>猜你喜欢</Heading2>
+                </View>
             </View>
         );
     }

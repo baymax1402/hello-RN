@@ -3,15 +3,25 @@ import React from 'react';
 import ReactNative, { StyleSheet, Dimensions, Text, ReactElement } from 'react-native'
 import color from './color'
 
+export function HeadingBig({style, ...props}: Object): ReactElement {
+    return <Text style={[styles.h0, style]} {...props} />
+}
+
+export function Heading1({style, ...props}: Object): ReactElement {
+    return <Text style={[styles.h1, style]} {...props}/>
+}
 
 export function Heading2({style, ...props}: Object): ReactElement {
-    return <Text style={[styles.h1, style]} {...props} />
+    return <Text style={[styles.h2, style]} {...props} />
 }
 
 export function Paragragh({style, ...props}: Object): ReactElement {
     return <Text style={[styles.p, style]} {...props} />
 }
 
+export function Tip({style, ...props}: Object): ReactElement {
+    return <Text style={[styles.tip, style]} {...props} />
+}
 
 const styles = StyleSheet.create({
     h0: {
