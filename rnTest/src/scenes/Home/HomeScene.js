@@ -5,7 +5,8 @@ import { View,
          StyleSheet,
          StatusBar,
          TouchableOpacity,
-         Image
+         Image,
+         FlatList
        } from 'react-native'
 import color from '../../widgets/color.js'
 import screen from '../../common/screen.js'
@@ -18,6 +19,7 @@ import HomeGridView from './HomeGridView'
 import SpacingView from '../../widgets/SpacingView.js'
 import api from '../../service/api.js'
 import datas from '../../service/datas.js'
+import GroupPurchaseCell from '../../cells/GroupPurchaseCell.js'
 
 class HomeScene extends PureComponent {
     // navigation
@@ -54,7 +56,9 @@ class HomeScene extends PureComponent {
     constructor(props){
         super(props);
         this.state = {
-            discounts: []
+            discounts: [],
+            dataList: [],
+            refreshing: false
         };
     }
     // 组件挂载
@@ -63,8 +67,11 @@ class HomeScene extends PureComponent {
     }
     // 请求数据
     requestData(){
+        this.setState({ refreshing: true });
         // 获取折扣推荐
         this.requestDiscounts();
+        // 获取猜你喜欢
+        this.requestRecommend();
     }
     // 获取折扣
     requestDiscounts(){
@@ -72,22 +79,40 @@ class HomeScene extends PureComponent {
         api.getDiscounts().then((response) => {
             let datas = response.data;
             self.setState({ discounts: datas });
+            // self.setState({ refreshing: false});
         }).catch((err) => {
             console.log('err:' + err);
         })
 
     }
+    // 获取猜你喜欢的推荐
+    requestRecommend(){
+        let self = this;
+        api.getRecommend().then((response) => {
+            let datas = response.data;
+            self.setState({ dataList: datas });
+            self.setState({ refreshing: false });
+        }).catch((err) => {
+            console.log('err:' + err);
+        });
+    }
+    // 点击上方菜单
     onMenuSelected(index) {
        console.log(index);
     }
+    // 点击折扣推荐
     onGridSelected(info) {
-        //此处不能使用this.state 
+        //此处不能使用this.state
         console.log(info);
 
     }
-    render() {
-        return (
-            <View style={styles.container}>
+    onCellSelected(info) {
+        console.log(info);
+    }
+    // 头部渲染组件
+    _renderHeader = () => {
+        return(
+            <View>
                 <HomeMenuView menuInfos={datas.menuInfo} onMenuSelected={(this.onMenuSelected)} />
                 <SpacingView />
                 <HomeGridView infos={this.state.discounts} onGridSelected={(this.onGridSelected)} />
@@ -95,6 +120,32 @@ class HomeScene extends PureComponent {
                 <View style= {styles.recommendHeader}>
                     <Heading2>猜你喜欢</Heading2>
                 </View>
+            </View>
+        )
+    }
+    // 获取下方猜你喜欢列表对应key值
+    keyExtractor(item, index){
+        return item.id;
+    }
+    // 获取下方猜你喜欢列表对应组件
+    _renderCell = (info) => {
+        return (
+            <GroupPurchaseCell info={info.item} onPress={this.onCellSelected} />
+        )
+
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <FlatList
+                    data = {this.state.dataList}
+                    keyExtractor = {this.keyExtractor}
+                    onRefresh = {this.requestData}
+                    refreshing = {this.state.refreshing}
+                    ListHeaderComponent = {this._renderHeader}
+                    renderItem = {this._renderCell}
+                />
             </View>
         );
     }
@@ -119,6 +170,15 @@ const styles = {
         width: 20,
         height: 20,
         margin: 5
+    },
+    recommendHeader: {
+        height: 35,
+        justifyContent: 'center',
+        borderWidth: screen.onePixel,
+        borderColor: color.border,
+        paddingVertical: 8,
+        paddingLeft: 20,
+        backgroundColor: 'white'
     }
 }
 
