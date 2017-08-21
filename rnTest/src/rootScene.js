@@ -12,6 +12,7 @@ import HomeScene from './scenes/Home/HomeScene.js'
 import NearbyScene from './scenes/Nearby/NearbyScene.js'
 import OrderScene from './scenes/Order/OrderScene.js'
 import MineScene from './scenes/Mine/MineScene.js'
+import GroupPurchaseScene from './scenes/GroupPurchase/GroupPurchaseScene.js'
 
 import TabBarItem from './widgets/TabBarItem.js'
 
@@ -133,7 +134,8 @@ const tab = TabNavigator(
 
 const Navigator = StackNavigator(
     {
-        Tab: { screen: tab }
+        Tab: { screen: tab },
+        GroupPurchase: { screen: GroupPurchaseScene }
     },
     {
         navigationOptions: {

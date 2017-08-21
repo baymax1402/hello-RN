@@ -19,5 +19,10 @@ export default {
         { title: '优惠买单', icon: require('../img/Home/icon_homepage_default.png') },
         { title: '休闲娱乐', icon: require('../img/Home/icon_homepage_entertainmentCategory.png') },
         { title: 'KTV', icon: require('../img/Home/icon_homepage_KTVCategory.png') }
-    ]
+    ],
+    tabs: ['享美食', '住酒店', '爱玩乐', '全部'],
+    types:[['热门', '面包甜点', '小吃快餐', '川菜', '日本料理', '韩国料理', '台湾菜', '东北菜'],
+           ['热门', '商务出行', '公寓民宿', '情侣专享', '高星特惠', '成人情趣'],
+           ['热门', 'KTV', '足疗按摩', '洗浴汗蒸', '大宝剑', '电影院', '美发', '美甲'],
+           []]
 }

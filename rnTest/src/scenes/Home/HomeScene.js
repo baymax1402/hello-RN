@@ -107,7 +107,7 @@ class HomeScene extends PureComponent {
 
     }
     onCellSelected(info) {
-        console.log(info);
+        // this.props.navigation.navigate('GroupPurchase', { info: info });
     }
     // 头部渲染组件
     _renderHeader = () => {
@@ -136,6 +136,7 @@ class HomeScene extends PureComponent {
     }
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <FlatList
