@@ -61,10 +61,9 @@ class NearbyListView extends PureComponent {
             let list = datas.map((info)=>{
                 return {
                     id: info.id,
-                    imgUrl: info.squareimgurl,
+                    imgurl: info.squareimgurl,
                     title: info.mname,
                     subtitle: `[${info.range}]${info.title}`,
-                    // subtitle: info.title,
                     price: info.price
                 }
             });

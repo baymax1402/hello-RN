@@ -18,7 +18,7 @@ import color from '../../widgets/color.js'
 class NearbyCell extends PureComponent {
     render() {
         let { info } = this.props
-        let imageUrl = info.imgUrl.replace('w.h', '160.0')
+        let imageUrl = info.imgurl.replace('w.h', '160.0')
         // <Paragraph numberOfLines={0} style={{ marginTop: 8 }}>{info.subtitle}</Paragraph>
         return (
             <TouchableOpacity style={styles.container} onPress={() => this.props.onPress()}>

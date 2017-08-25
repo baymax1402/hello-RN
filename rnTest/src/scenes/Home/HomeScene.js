@@ -90,7 +90,16 @@ class HomeScene extends PureComponent {
         let self = this;
         api.getRecommend().then((response) => {
             let datas = response.data;
-            self.setState({ dataList: datas });
+            let list = datas.map((info)=>{
+                return {
+                    id: info.id,
+                    imgurl: info.imgurl,
+                    title: info.brandname,
+                    subtitle: `[${info.range}]${info.title}`,
+                    price: info.price
+                }
+            })
+            self.setState({ dataList: list });
             self.setState({ refreshing: false });
         }).catch((err) => {
             console.log('err:' + err);

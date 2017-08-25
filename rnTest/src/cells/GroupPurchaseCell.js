@@ -10,7 +10,6 @@ class GroupPurchaseCell extends PureComponent {
     render(){
         let info = this.props.info;
         let imageUrl = info.imgurl.replace('w.h', '160.0');
-
         return (
             <TouchableOpacity style={styles.container} onPress={()=> this.props.onPress(info)}>
                 <Image source = {{ uri: imageUrl}} style = {styles.icon}/>

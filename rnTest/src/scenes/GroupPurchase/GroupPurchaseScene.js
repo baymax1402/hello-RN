@@ -55,7 +55,7 @@ class GroupPurchaseScene extends PureComponent {
         return (
             <View>
                 <View>
-                    <Image style={styles.banner} source={{ uri: info.imgUrl.replace('w.h', '480.0')}}/>
+                    <Image style={styles.banner} source={{ uri: info.imgurl.replace('w.h', '480.0')}}/>
                     <View style={styles.topContainer}>
                         <Heading1 style={{ color: color.theme }}>￥</Heading1>
                         <HeadingBig style={{ marginBottom: -8 }}>{info.price}</HeadingBig>
@@ -114,7 +114,7 @@ class GroupPurchaseScene extends PureComponent {
                 }
             });
             this.setState({
-                ds: this.state.dataSource.cloneWithRows(dataList)
+                dataSource: this.state.dataSource.cloneWithRows(dataList)
             });
             setTimeout(()=>{
                 this.listView.endRefreshing(RefreshState.NoMoreData);
